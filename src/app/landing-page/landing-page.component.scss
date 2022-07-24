@@ -167,11 +167,45 @@
             align-items: center;
             position: relative;
             border: none;
+            background: rgb(203,203,203);
+            color: #fff;
         }
 
         .get-link{
-            background: orange;
+            background: rgb(255,146,37);
             color: #FFF;
         }
+
+        .loader{
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            border-left-color: transparent;
+            transform: rotateZ(0deg);
+            animation: loading_anim .6s linear infinite;
+        }
+
+        @keyframes loading_anim{
+            100%{
+                transform: rotateZ(360deg);
+            }
+        }
+
+        .sent {
+            background: rgb(7,171,62);
+        }
+
+        .check{
+            background: #fff;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 7px;
+        }
+    
     }
 }

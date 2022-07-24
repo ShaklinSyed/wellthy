@@ -56,12 +56,35 @@
             
           </div> 
   
-          <button class="btn" type="submit" [disabled]="formDetails.invalid"
-          ngClass="{'get-link': formDetails.valid, 'disabled-link': formDetails.invalid}">Get link</button>
+          <button class="btn" type="submit" [disabled]="formDetails.invalid" [ngClass]="{'get-link': formDetails.valid, 'disabled-link': formDetails.invalid, 'sent': btnStatus === 'success'}">
+            <ng-container *ngIf="btnStatus === 'initial'">
+              Get link
+            </ng-container>
+            
+            <ng-container *ngIf="btnStatus === 'loading'">
+              <div class="loader"></div>
+            </ng-container>
+
+            <ng-container *ngIf="btnStatus === 'success'">
+              <div class="check">
+                <svg width="15" height="11" viewBox="0 0 149 113" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6.5 59.5L48 101L143 6" stroke="#07ab3e" stroke-width="16"/>
+                </svg>
+              </div>
+              <span>Sent</span>
+            </ng-container>
+
+          </button>
   
           <p *ngIf="name.invalid && name.touched">
-            <span *ngIf="name.value.length < 6" style="color: red">User name should be atleast 6 characters long</span>
-            <br>
+
+            <ng-container *ngIf="name.value.length < 6" >
+              <span style="color: red">User name should be atleast 6 characters long</span>
+              <br />
+              <span style="color: red">Alphabets[a-z][A-z], Numbers[0-9] and _ is allowed</span>
+            </ng-container>
+
+            <br />
             <span *ngIf="name.value.length > 30" style="color: red">User name should be less than 30 characters</span>        
           </p>
           <p *ngIf="mobile.invalid && mobile.touched" style="color: red">Mobile Number Should be 10 Numbers Long</p>
