@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 
 export class LandingPageComponent implements OnInit {
 
+  btnStatus: string = "initial";
+
   constructor(
     public platform: Platform,
     public apiService: ApiServiceService,
@@ -29,14 +31,13 @@ export class LandingPageComponent implements OnInit {
   // Makes the api call to post the data
   getLink(formDetails: any){
 
-    console.log(formDetails);
+    this.btnStatus ="loading";
 
     this.apiService.saveData(formDetails.username, formDetails.areacode + formDetails.mobile)
       .subscribe((data: any) => {
         if (data.status){
+          this.btnStatus = "success";
           this.router.navigate(['wellthypage']);
-        } else {
-          
         }
       });
 
