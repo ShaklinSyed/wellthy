@@ -1,0 +1,71 @@
+<ng-container *ngIf="platform.ANDROID || platform.IOS">
+    <div class="wrapper-mobile">
+      <div class="background"></div>
+  
+      <div class="logo-wrapper">
+        <div class="wellthy-icon"></div>
+      </div>
+  
+      <div class="download-text">
+        Download and install the app to get all details
+      </div>
+  
+      <div class="app-store-wrapper">
+        <ng-container *ngIf="platform.ANDROID">
+          <div class="android-icon" (click)="goTo('https://play.google.com/store/apps/details?id=wellthy.care')"></div>
+        </ng-container>
+        
+        <ng-container *ngIf="platform.IOS">
+          <div class="ios-icon" (click)="goTo('https://apps.apple.com/in/app/wellthy-care/id1382566710')"></div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+  
+  <ng-container *ngIf="!platform.ANDROID && !platform.IOS">
+    <div class="wrapper">
+      <img src="/assets/wellthy_logo.png" alt="logo" class="brand-logo">
+  
+      <div class="title-text">
+        Download & install the app for more details
+      </div>
+  
+      <div class="app-links">
+        <div class="play-store-link" (click)="goTo('https://play.google.com/store/apps/details?id=wellthy.care')"></div>
+        <div class="ios-link" (click)="goTo('https://apps.apple.com/in/app/wellthy-care/id1382566710')"></div>
+      </div>
+  
+      <div class="form-wrapper">
+        <div class="form-title">or, enter the details to get the link</div>
+  
+        <form (ngSubmit)="getLink(formDetails.value)" #formDetails="ngForm">
+          <input type="text" name="username" #name="ngModel" pattern="^[a-zA-Z\_][a-zA-Z\_0-9]{5,29}$" 
+            required  
+            placeholder="username" 
+            ngModel
+            minlength="6"
+            maxlength="30"
+            class="username">
+  
+          <div class="select-wrapper">
+            <select name="areacode" id="areacode" ngModel required [value]="91">
+              <option value="91" selected>+91</option>
+              <option value="1">+1</option>
+            </select>
+            <input type="number" name="mobile" #mobile="ngModel" pattern="^\d{10}" minlength="10" maxlength="10" required placeholder="mobile" ngModel>
+            
+          </div> 
+  
+          <button class="btn" type="submit" [disabled]="formDetails.invalid"
+          ngClass="{'get-link': formDetails.valid, 'disabled-link': formDetails.invalid}">Get link</button>
+  
+          <p *ngIf="name.invalid && name.touched">
+            <span *ngIf="name.value.length < 6" style="color: red">User name should be atleast 6 characters long</span>
+            <br>
+            <span *ngIf="name.value.length > 30" style="color: red">User name should be less than 30 characters</span>        
+          </p>
+          <p *ngIf="mobile.invalid && mobile.touched" style="color: red">Mobile Number Should be 10 Numbers Long</p>
+        </form>
+      </div>
+    </div>
+  </ng-container>
